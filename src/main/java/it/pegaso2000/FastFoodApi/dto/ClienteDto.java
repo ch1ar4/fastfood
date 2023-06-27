@@ -8,6 +8,13 @@ public class ClienteDto {
 	public int eta;
 	
 	
+	
+	public ClienteDto(String nome, boolean is_vegetariano, int eta) {
+		super();
+		this.nome = nome;
+		this.is_vegetariano = is_vegetariano;
+		this.eta = eta;
+	}
 	public int getId() {
 		return id;
 	}
