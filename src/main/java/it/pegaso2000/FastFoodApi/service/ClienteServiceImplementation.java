@@ -43,9 +43,11 @@ public class ClienteServiceImplementation implements ClienteService {
 	@Override
 	public boolean delete(int id) {
 		Optional<Cliente> c = crepo.findById(id);
-		if (c.isPresent())
+		if (c.isPresent()) {
 			crepo.deleteById(id);
 		return true;
+		}
+		return false;
 	}
 
 }

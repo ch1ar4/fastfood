@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,23 +55,24 @@ public class ClienteController {
 		return new ResponseEntity<ClienteDto>(entityToDto(saved), HttpStatus.OK);
 	}
 
-	// TODO rivedi update
-//	@PutMapping("/update/{id}")
-//	public ResponseEntity<ClienteDto> update(@RequestBody ClienteDto updated, @PathVariable int id) {
-//		ClienteDto dto = entityToDto(service.getById(id));
-//		if (dto != null) {
-//			updated.setId(id);
-//			Cliente saving = service.save(dtoToEntity(updated));
-//			return new ResponseEntity<ClienteDto>(entityToDto(saving), HttpStatus.OK);
-//		}
-//		return null;
-//	}
+	// TODO update
+	@PutMapping("/update/{id}")
+	public ResponseEntity<ClienteDto> update(@RequestBody ClienteDto updated, @PathVariable int id) {
+		ClienteDto dto = entityToDto(service.getById(id));
+		if (dto != null) {
+			updated.setId(id);
+			Cliente saving = service.save(dtoToEntity(updated));
+			return new ResponseEntity<ClienteDto>(entityToDto(saving), HttpStatus.OK);
+		}
+		return new ResponseEntity<ClienteDto>(HttpStatus.NO_CONTENT);
+	}
 
 	// TODO delete
-//	@DeleteMapping("/delete/{id}")
-//	public boolean delete(@PathVariable int id) {
-//		return entityToDto(service.delete(id));
-//	}
+	@DeleteMapping("/delete/{id}")
+	public boolean delete(@PathVariable int id) {
+		return service.delete(id);
+
+	}
 
 //entitytodto
 	private ClienteDto entityToDto(Cliente c) {
@@ -79,6 +81,7 @@ public class ClienteController {
 		return dto;
 	}
 
+//dtoToEntity
 	private Cliente dtoToEntity(ClienteDto dto) {
 		Cliente c = new Cliente();
 		c.setNome(dto.getNome());
